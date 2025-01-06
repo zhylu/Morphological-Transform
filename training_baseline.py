@@ -15,7 +15,7 @@ import h5py
 
 
 FILENAME = "STL10.mat"
-
+# use the pre-processed dataset
 mean = [0.4467,0.4398,0.4067]
 std = [0.2586,0.2548,0.2696]
 c = 10
@@ -91,6 +91,7 @@ tfmtrain = nn.Sequential(
 #%%
 acc_sum = 0
 for t in range(3):
+# training for 3 times 
     print(t)
     from torchvision import models
     d = 512
