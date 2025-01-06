@@ -1,2 +1,2 @@
 stl10    https://drive.google.com/file/d/1HRChPPf7qyeg2kFzz4SiZMIubbAll0Xe/view?usp=drive_link
-This is a sample of the proprocess datasets. It a single MAT file and can be loaded to RAM once, thus the frequent I/O operations are reduced compared to the original dataset including splited files stored in a disk.
+This is a sample of the pre-processed datasets. It's a single MAT file and can be loaded to RAM once, thus the frequent I/O operations are reduced compared to the original dataset including splited files stored in a disk.
