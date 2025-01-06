@@ -7,7 +7,7 @@ re = tf.RandomErasing(p=1)
 
 
 class gdfn_img(torch.nn.Module):
-
+# this method is used for single image
     def __init__(self,kernel_size = 3,dilation='True'):
         
         super().__init__()
@@ -70,7 +70,7 @@ class gdfn_img(torch.nn.Module):
         return img_mod
      
 class gdfn_batch_mix(torch.nn.Module):
-
+# this method is used for the mini-batch in model training.
     def __init__(self,p = 0.1,p_mix = 0.5,kernel_size = 3,device = 'cuda'):
         
         super().__init__()
@@ -151,7 +151,7 @@ class gdfn_batch_mix(torch.nn.Module):
         return img.byte()
             
 class gdfn_region_batch(torch.nn.Module):
-
+# This method is depreicated.
     def __init__(self,p = 0.5,p_mix = 0.5,kernel_size = 3):
         
         super().__init__()
@@ -228,7 +228,7 @@ class gdfn_region_batch(torch.nn.Module):
         return img     
            
 class gdfn_batch_random(torch.nn.Module):
-
+# This method is simplifed version of the gdfn_batch with less time cost
     def __init__(self,p = 0.1,kernel_size = 3,device = 'cuda'):
         
         super().__init__()
