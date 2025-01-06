@@ -81,7 +81,7 @@ tfmtrain = nn.Sequential(
 
                        
                        tf.Resize(sd),
-                       gdfn_batch_random(p=0.1),
+                       gdfn_batch_random(p=0.1),# use the simplified version of the morphological augmentation
                        tf.RandomCrop(sd,12),   
                        tf.RandomHorizontalFlip(),
                        tf.ConvertImageDtype(torch.float),
