@@ -6,7 +6,7 @@ All the involved datasets are public and can be obtained according to the referr
 
 "gdfn.py" is an implementation in Python that can be imported for practical model training in Pytorch.  
 
-"training_baseline.py" is an example of the model training without Morphological Augmentation.  
+"training_gdfn.py" is an example of the model training with Morphological Augmentation.  
 
 Training and Test Instructions:  
 ```python
