@@ -11,6 +11,5 @@ All the involved datasets are public and can be obtained according to the referr
 "training_gdfn.py" is an example of the model training with Morphological Augmentation.  
 
 Training and Test Instructions:  
-···Python
-python training_gdfn.py 
+python test.py --task='its' --test_imgs='test_imgs'
 
