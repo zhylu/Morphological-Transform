@@ -23,7 +23,7 @@ ep = 80 # training epochs
 
 bs = 64 # mini-batch size
 test_bs = 500 # test batch size
-p = 0.1 # the prob that the 
+p = 0.1 # the prob that the augmentation used to training images
 p_dilation = 0.5*p
 mb = 78
 
@@ -35,7 +35,10 @@ print(data.keys())
 
 #%%
 
-import numpy
+import numpy 
+
+#transform the mat file into tensors
+
 traindatan,trainlabel,testdatan,testlabel = numpy.array(data['traindata']),\
                                             numpy.array(data['trainlabel']),\
                                             numpy.array(data['testdata']),\
@@ -59,6 +62,7 @@ testdata_size = int(testdata.size(0))
 #%%
 
 import matplotlib.pyplot as plt
+# show the training images
 n = torch.randint(0,traindata_size,(1,1)).squeeze()
 print(n)
 test = traindata[n].permute(1,2,0).float()/255
@@ -72,6 +76,8 @@ import torch.nn as nn
 
 from gdfn import gdfn_batch_random
 
+# define the augmentation strategy
+
 tfmtest = nn.Sequential(
                      
                       tf.Resize(sd),                     
@@ -82,7 +88,7 @@ tfmtrain = nn.Sequential(
 
                        
                        tf.Resize(sd),
-                       gdfn_batch_random(p=0.1),# use the simplified version of the morphological augmentation
+                       gdfn_batch_random(p=0.1), # use the simplified version of the morphological augmentation
                        tf.RandomCrop(sd,12),   
                        tf.RandomHorizontalFlip(),
                        tf.ConvertImageDtype(torch.float),
