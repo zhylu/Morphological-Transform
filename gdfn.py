@@ -21,24 +21,24 @@ class gdfn_img(torch.nn.Module):
         offset = int((self.ks-1)/2)     
         channel,img_size,_ = img.size()
 
-        img_p = F.pad(img.float(), [offset,offset,offset,offset])
+        img_p = F.pad(img.float(), [offset,offset,offset,offset]) #pad the four side of the image
 
-        img_p = img_p + torch.rand_like(img_p)
+        img_p = img_p + torch.rand_like(img_p) #aovid zeros in divide operation
  
-        img_e = torch.zeros(channel,img_size,img_size,self.ks,self.ks)
+        img_e = torch.zeros(channel,img_size,img_size,self.ks,self.ks) #expand the image
         for i in range(ks2):
             x,y = divmod(i,self.ks)
 
-            img_e[:,:,:,x,y] = img_p[:,x:x+img_size,y:y+img_size];
+            img_e[:,:,:,x,y] = img_p[:,x:x+img_size,y:y+img_size]; #fill the expanded image
 
         Std = torch.std(img_e,[3,4],unbiased=True,keepdim=True)
 
         Mean = torch.mean(img_e,[3,4],keepdim=True)
 
-        img_3d = (-(img_e -Mean).pow(2).div(2*Std.pow(2))).exp().min(0,keepdim=True)[0] #compute the 3d fuzzy number
+        img_3d = (-(img_e -Mean).pow(2).div(2*Std.pow(2))).exp().min(0,keepdim=True)[0] 
 
   
-        img_r = img_e.mul(img_3d).sum([0,3,4],keepdim=True).div(img_3d.sum([3,4],keepdim=True)).squeeze()
+        img_r = img_e.mul(img_3d).sum([0,3,4],keepdim=True).div(img_3d.sum([3,4],keepdim=True)).squeeze() #compute the 3d discrete fuzzy number
   
         img_r_p = F.pad(img_r, [offset,offset,offset,offset])
   
@@ -47,7 +47,7 @@ class gdfn_img(torch.nn.Module):
             x,y = divmod(i,self.ks)
             img_r_e[:,:,i] = img_r_p[x:x+img_size,y:y+img_size];
 
-        ids = torch.sort(img_r_e,dim=2)[1]
+        ids = torch.sort(img_r_e,dim=2)[1] #sorting  
   
         #ids = ids[:,:,0] #erosion
         ids = ids[:,:,-1] if self.dilation else ids[:,:,0] #dilation
@@ -55,7 +55,7 @@ class gdfn_img(torch.nn.Module):
       
         img_3d_s = img_3d.reshape([img_size,img_size,ks2])
   
-        img_3d_mod = img_3d_s.gather(2,ids.unsqueeze(2)).squeeze()  #sorting
+        img_3d_mod = img_3d_s.gather(2,ids.unsqueeze(2)).squeeze()  #sorting the 3d discrete fuzzy numbers
      
         img_3d_mod_p = F.pad(img_3d_mod, [offset,offset,offset,offset])
 
@@ -287,7 +287,7 @@ class gdfn_batch_random(torch.nn.Module):
             img_r_e[:,:,:,i] = img_r_p[:,x:x+img_size,y:y+img_size];
 
         
-        ids_mix = torch.randint(0,ks2,[batch_size,img_size,img_size],device=self.device)
+        ids_mix = torch.randint(0,ks2,[batch_size,img_size,img_size],device=self.device) # time cost are reduced due to sorting removed
         
         img_3d_s = img_3d.reshape([batch_size,img_size,img_size,ks2])
         
