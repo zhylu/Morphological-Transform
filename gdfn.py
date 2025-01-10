@@ -7,9 +7,11 @@ re = tf.RandomErasing(p=1)
 
 
 class gdfn_img(torch.nn.Module):
-# this method is used for single image
+    
+# this method is used for single image processing in GPU
+    
     def __init__(self,kernel_size = 3,dilation='True'):
-        
+        # 'True' for dilation and 'False' for erosion 
         super().__init__()
         self.ks = kernel_size
         self.dilation = dilation
@@ -70,7 +72,9 @@ class gdfn_img(torch.nn.Module):
         return img_mod
      
 class gdfn_batch_mix(torch.nn.Module):
+    
 # this method is used for the mini-batch in model training.
+    
     def __init__(self,p = 0.1,p_mix = 0.5,kernel_size = 3,device = 'cuda'):
         
         super().__init__()
@@ -79,10 +83,7 @@ class gdfn_batch_mix(torch.nn.Module):
         self.ks = kernel_size
         self.device = device
     def forward(self, img):
-        
-
-        
-      
+              
         ks2 = self.ks**2
         offset = int((self.ks-1)/2)     
         batch_size,channel,img_size,_ = img.size()
@@ -151,7 +152,9 @@ class gdfn_batch_mix(torch.nn.Module):
         return img.byte()
             
 class gdfn_region_batch(torch.nn.Module):
-# This method is depreicated.
+    
+# This method is depreicated
+    
     def __init__(self,p = 0.5,p_mix = 0.5,kernel_size = 3):
         
         super().__init__()
@@ -228,7 +231,9 @@ class gdfn_region_batch(torch.nn.Module):
         return img     
            
 class gdfn_batch_random(torch.nn.Module):
-# This method is simplifed version of the gdfn_batch with less time cost
+    
+# This method is simplifed version of the gdfn_batch with less timecost
+    
     def __init__(self,p = 0.1,kernel_size = 3,device = 'cuda'):
         
         super().__init__()
