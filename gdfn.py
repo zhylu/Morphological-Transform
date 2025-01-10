@@ -35,7 +35,7 @@ class gdfn_img(torch.nn.Module):
 
         Mean = torch.mean(img_e,[3,4],keepdim=True)
 
-        img_3d = (-(img_e -Mean).pow(2).div(2*Std.pow(2))).exp().min(0,keepdim=True)[0]
+        img_3d = (-(img_e -Mean).pow(2).div(2*Std.pow(2))).exp().min(0,keepdim=True)[0] #compute the 3d fuzzy number
 
   
         img_r = img_e.mul(img_3d).sum([0,3,4],keepdim=True).div(img_3d.sum([3,4],keepdim=True)).squeeze()
@@ -55,7 +55,7 @@ class gdfn_img(torch.nn.Module):
       
         img_3d_s = img_3d.reshape([img_size,img_size,ks2])
   
-        img_3d_mod = img_3d_s.gather(2,ids.unsqueeze(2)).squeeze()
+        img_3d_mod = img_3d_s.gather(2,ids.unsqueeze(2)).squeeze()  #sorting
      
         img_3d_mod_p = F.pad(img_3d_mod, [offset,offset,offset,offset])
 
@@ -66,7 +66,7 @@ class gdfn_img(torch.nn.Module):
         
         img_3d_mod_e = img_3d_mod_e.unsqueeze(0)
  
-        img_mod = img_e.mul(img_3d_mod_e).sum([3,4],keepdim=True).div(img_3d_mod_e.sum([3,4],keepdim=True)).squeeze().int()  
+        img_mod = img_e.mul(img_3d_mod_e).sum([3,4],keepdim=True).div(img_3d_mod_e.sum([3,4],keepdim=True)).squeeze().int()  # compute the original image
      
          
         return img_mod
