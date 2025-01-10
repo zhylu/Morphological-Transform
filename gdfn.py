@@ -232,7 +232,7 @@ class gdfn_region_batch(torch.nn.Module):
            
 class gdfn_batch_random(torch.nn.Module):
     
-# This method is simplifed version of the gdfn_batch with less timecost
+# This method is simplifed version of the gdfn_batch with less time cost
     
     def __init__(self,p = 0.1,kernel_size = 3,device = 'cuda'):
         
