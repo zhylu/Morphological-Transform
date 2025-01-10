@@ -3,28 +3,27 @@ import torch
 torch.cuda.empty_cache()
 import time
 start = time.time()
+
 import os
-os.chdir('/gdfn')
-# define the work directory including the pre-processed dataset.
+os.chdir('/gdfn')  # define the work directory including the pre-processed dataset and gdfn.py
 print(os.getcwd())
+
 import torch
 torch.manual_seed(1)
 torch.backends.cudnn.enabled = True
 torch.backends.cudnn.benchmark = True
-import h5py
 
-
-
+import h5py # read the mat file
 FILENAME = "STL10.mat"
 
 mean = [0.4467,0.4398,0.4067]
 std = [0.2586,0.2548,0.2696]
-c = 10
-ep = 80
+c = 10 # class number
+ep = 80 # training epochs
 
-bs = 64
-test_bs = 500
-p = 0.1
+bs = 64 # mini-batch size
+test_bs = 500 # test batch size
+p = 0.1 # the prob that the 
 p_dilation = 0.5*p
 mb = 78
 
@@ -35,7 +34,7 @@ data = h5py.File(FILENAME,"r")
 print(data.keys())
 
 #%%
-import torch
+
 import numpy
 traindatan,trainlabel,testdatan,testlabel = numpy.array(data['traindata']),\
                                             numpy.array(data['trainlabel']),\
@@ -70,6 +69,7 @@ sd = 224
 
 from torchvision import transforms as tf
 import torch.nn as nn
+
 from gdfn import gdfn_batch_random
 
 tfmtest = nn.Sequential(
