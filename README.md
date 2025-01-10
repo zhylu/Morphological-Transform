@@ -12,5 +12,5 @@ All the involved datasets are public and can be obtained according to the referr
 
 Training and Test Instructions:  
 ```python
-python test.py --task='its' --test_imgs='test_imgs'
+python training_gdfn.py
 
