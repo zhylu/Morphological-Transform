@@ -4,7 +4,8 @@ torch.cuda.empty_cache()
 import time
 start = time.time()
 import os
-os.chdir('D:/gdfn')
+os.chdir('/gdfn')
+# define the work directory including the pre-processed dataset.
 print(os.getcwd())
 import torch
 torch.manual_seed(1)
