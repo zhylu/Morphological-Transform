@@ -62,7 +62,7 @@ testdata_size = int(testdata.size(0))
 #%%
 
 import matplotlib.pyplot as plt
-# show the training images
+# show the images
 n = torch.randint(0,traindata_size,(1,1)).squeeze()
 print(n)
 test = traindata[n].permute(1,2,0).float()/255
@@ -99,7 +99,7 @@ tfmtrain = nn.Sequential(
 
 #%%
 acc_sum = 0
-for t in range(3):
+for t in range(3): #training for 3 times
     print(t)
     from torchvision import models
     d = 512
@@ -119,7 +119,7 @@ for t in range(3):
     
     lossfn = nn.CrossEntropyLoss()
     #%%
-    
+    # load the pretrained weights
     '''
     PATH = "stl10_ck"
     checkpoint = torch.load(PATH)
@@ -129,8 +129,9 @@ for t in range(3):
     print("checkpoint loaded")
     '''
     #%%
-    from torch.utils.data import TensorDataset,DataLoader
-    
+    from torch.utils.data import TensorDataset,DataLoader 
+    #define the dataloader
+  
     train = TensorDataset(traindata, trainlabel)
     test = TensorDataset(testdata, testlabel)
      
@@ -143,7 +144,7 @@ for t in range(3):
     from torch.cuda.amp import autocast,GradScaler
     scaler = GradScaler()
 
-
+    # mix precision training
 
     for epoch in range(ep):
     
@@ -203,19 +204,15 @@ for t in range(3):
 
       
 
-print(acc_sum/3)
+print(acc_sum/3) # show the average accuracy of 3 times
 
-#%%
-
-
-#%%
 
   
   
 #%%   
 '''
 PATH = "stl10_ck"
-
+# save the weights
 torch.save({
     'model_state_dict': net.state_dict(),
     'optimizer_state_dict': optimizer.state_dict(),
