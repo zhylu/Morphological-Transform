@@ -1,6 +1,6 @@
 These are the source codes for "Morphological Augmentation of Image Data using Three-Dimensional Discrete Fuzzy Numbers: A Theoretical Foundation", submitted to "The Visual Computer".  
 
-All the involved datasets are public and can be obtained according to the referred papers. In the practice, the datasets are pre-processed as MAT files for accelerating training. A sample of the pre-processed dataset files is provided in " pre-processed dataset.txt".  
+All the involved datasets are public and can be obtained according to the referred papers. In our method, the datasets are pre-processed as MAT files for accelerating training. A sample of the pre-processed dataset files is provided in "pre-processed dataset.txt".  
 
 "gdfn-illustration.mlx" is an implementation for Matlab to process single image.  
 
