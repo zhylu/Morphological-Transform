@@ -66,7 +66,7 @@ class gdfn_img(torch.nn.Module):
         
         img_3d_mod_e = img_3d_mod_e.unsqueeze(0)
  
-        img_mod = img_e.mul(img_3d_mod_e).sum([3,4],keepdim=True).div(img_3d_mod_e.sum([3,4],keepdim=True)).squeeze().int()  # compute the original image
+        img_mod = img_e.mul(img_3d_mod_e).sum([3,4],keepdim=True).div(img_3d_mod_e.sum([3,4],keepdim=True)).squeeze().int()  # compute the sorted image pixels
      
          
         return img_mod
