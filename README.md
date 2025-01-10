@@ -8,6 +8,8 @@ All the involved datasets are public and can be obtained according to the referr
 
 "training_gdfn.py" is an example of the model training with Morphological Augmentation.  
 
+Pytorch 2.5 and cuda 12.4 are recommended
+
 Training and Test Instructions:  
 ```python
 python training_gdfn.py
